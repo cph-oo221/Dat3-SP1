@@ -9,8 +9,8 @@
 
 ---
 
-### Description business idea:
-*   HobbyMatch is an innovative web application designed to help users find meaningful connections based on common hobby interests. The platform allows users to discover like-minded individuals by selecting their favorite hobbies and interests. Here's how it works:
+### Business Idea Description:
+HobbyMatch is an innovative web application designed to help users find meaningful connections based on common hobby interests. The platform allows users to discover like-minded individuals by selecting their favorite hobbies and interests. Here's how it works:
 
   __Profile Creation:__ Users begin by creating a profile where they list their hobbies and interests. They can select from a wide range of options, such as hiking, cooking, photography, gaming, and more.
 
@@ -31,7 +31,7 @@
 
 ---
 
-### EE-diagram
+### EER-diagram
 ![](documentation/md/EE-DIAGRAM.png)
 
 ---
