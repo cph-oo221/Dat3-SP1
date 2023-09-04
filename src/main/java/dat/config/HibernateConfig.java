@@ -15,16 +15,15 @@ public class HibernateConfig
 {
 
     private static EntityManagerFactory entityManagerFactory;
-    private static String dbName;
 
-    private static EntityManagerFactory buildEntityFactoryConfig()
+    private static EntityManagerFactory buildEntityFactoryConfig(String dbName, String writeMethod)
     {
         try
         {
             Configuration configuration = new Configuration();
 
             Properties props = new Properties();
-            String connctionURL = String.format("jdbc:postgresql://localhost:5432/%s?currentSchema=public", dbName);
+            String connctionURL = String.format("jdbc:postgresql://localhost:5432/"+ dbName +"?currentSchema=public");
             props.put("hibernate.connection.url", connctionURL);
             props.put("hibernate.connection.username", "postgres");
             props.put("hibernate.connection.password", "postgres");
@@ -36,7 +35,7 @@ public class HibernateConfig
             props.put("hibernate.connection.driver_class", "org.postgresql.Driver"); // driver class for postgresql
             props.put("hibernate.archive.autodetection", "class"); // hibernate scans for annotated classes
             props.put("hibernate.current_session_context_class", "thread"); // hibernate current session context
-            props.put("hibernate.hbm2ddl.auto", "create"); // hibernate creates tables based on entities
+            props.put("hibernate.hbm2ddl.auto", writeMethod); // hibernate creates tables based on entities
 
 
             return getEntityManagerFactory(configuration, props);
@@ -65,10 +64,9 @@ public class HibernateConfig
         allAnnotationConfiguration(configuration);
     }
 
-    public static EntityManagerFactory getEntityManagerFactoryConfig(String name)
+    public static EntityManagerFactory getEntityManagerFactoryConfig(String dbName, String writeMethod)
     {
-        dbName = name;
-        if (entityManagerFactory == null) entityManagerFactory = buildEntityFactoryConfig();
+        if (entityManagerFactory == null) entityManagerFactory = buildEntityFactoryConfig(dbName, writeMethod);
         return entityManagerFactory;
     }
 
