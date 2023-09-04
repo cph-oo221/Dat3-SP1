@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Setter
 @Getter
@@ -26,8 +29,8 @@ public class Address
     @JoinColumn(name = "z_id")
     private Zip zip;
 
-    @OneToMany
-    private PersonDetail personDetail;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<PersonDetail> personDetail = new HashSet<>();
 
 
     public Address(String street, String number, Zip zip)
