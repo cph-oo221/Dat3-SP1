@@ -1,4 +1,4 @@
-package dat.model;
+package dat.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
