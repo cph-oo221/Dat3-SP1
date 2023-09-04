@@ -1,5 +1,6 @@
 package dat.config;
 
+import dat.entities.*;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -61,7 +62,9 @@ public class HibernateConfig
 
     private static void getAnnotationConfiguration(Configuration configuration)
     {
-        allAnnotationConfiguration(configuration);
+        allAnnotationConfiguration(configuration, Address.class, Hobby.class,
+                Interests.class, Person.class, PersonDetail.class, Phone.class,
+                Zip.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig(String dbName, String writeMethod)
