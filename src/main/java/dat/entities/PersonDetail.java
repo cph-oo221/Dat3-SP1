@@ -14,7 +14,6 @@ import lombok.ToString;
 public class PersonDetail
 {
     @Id
-    @MapsId
     private Integer id;
 
     @Column(length = 45)
@@ -26,8 +25,9 @@ public class PersonDetail
     @Column(length = 25)
     private String password;
 
-//    @OneToOne
-//    private Person person;
+    @OneToOne
+    @MapsId
+    private Person person;
 
     @ManyToOne
     private Address address;
