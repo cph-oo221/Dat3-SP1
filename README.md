@@ -14,12 +14,12 @@
 ---
 
 ### Domain Model
-![DOMAIN-MODEL.png](documentation/md/DOMAIN-MODEL.png)
+![](documentation/md/DOMAIN-MODEL.png)
 
 ---
 
 ### EE-diagram
-![EE-DIAGRAM.png](documentation/md/EE-DIAGRAM.png)
+![](documentation/md/EE-DIAGRAM.png)
 
 ---
 
