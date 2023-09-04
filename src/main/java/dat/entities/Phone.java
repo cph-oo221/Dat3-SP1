@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.regex.Pattern;
+
 @Entity
 @Setter
 @Getter
@@ -13,22 +15,50 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Phone
 {
+    // TODO - find number is a String it's very easy to check with regex
+    //  if a number is equal to danish telefon number. Maybe change back to Integer :/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "phone_id")
     private Integer id;
 
-    private Integer number;
+    private String number;
 
-    private Type type;
+    @Column(name = "type")
+    private PhoneType type;
 
     @ManyToOne
     private PersonDetail personDetail;
 
-    public Phone(Integer number, Type type)
+    public Phone(String number, PhoneType type)
     {
         this.number = number;
         this.type = type;
     }
 
+    @PrePersist
+    private void beforeSave()
+    {
+        if (!phoneNumberValidation(number))
+        {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @PreUpdate
+    private void beforeUpdate()
+    {
+        if (!phoneNumberValidation(number))
+        {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public boolean phoneNumberValidation(String number)
+    {
+        String regex = "(?:(?:\\+45|0045|45)[\\s-]?)?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}[\\s-]?\\d{2}";
+
+        return Pattern.matches(regex, number);
+    }
 }
