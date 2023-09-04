@@ -33,7 +33,7 @@ public class Person
         this.name = name;
         this.birthdate = birthdate;
     }
-    
+
     public void addPersonDetail(PersonDetail personDetail)
     {
         this.personDetail = personDetail;
