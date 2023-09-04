@@ -23,6 +23,11 @@
 
 ---
 
+### Workflow
+* text
+
+---
+
 ### Technical requirements:
 * JPA
 * JPQL
