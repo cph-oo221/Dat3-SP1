@@ -48,7 +48,7 @@ public class PersonDetail
             phone.setPersonDetail(this);
         }
     }
-    
+
     @PrePersist
     public void verifyEmail()
     {
