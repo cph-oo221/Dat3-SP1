@@ -1,8 +1,6 @@
 package dat.entities;
 
-public enum Type
+public enum PhoneType
 {
     HOME, WORK, MOBILE
-
-
 }
