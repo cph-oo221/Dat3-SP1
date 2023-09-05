@@ -50,8 +50,11 @@ class MainTest
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
                 "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        p.addPhone(new Phone("12345678", PhoneType.HOME));
 
         personDAO.createPerson(p);
+
+        assertEquals("John", personDAO.read(p.getP_id()).getName());
     }
 
 

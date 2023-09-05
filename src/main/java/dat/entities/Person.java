@@ -22,22 +22,18 @@ public class Person
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer p_id;
     private String name;
+    @Column(length = 45, nullable = false)
+    private String surname;
     private LocalDate birthdate;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Interests> interests = new HashSet<>();
 
-    @Column(length = 45, nullable = false)
-    private String surname;
 
     @Column(length = 100, nullable = false)
     private String email;
 
     @Column(length = 25, nullable = false)
     private String password;
-
-    @OneToOne
-    @MapsId
-    private Person person;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
