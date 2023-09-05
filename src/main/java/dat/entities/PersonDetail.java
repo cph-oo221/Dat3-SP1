@@ -68,7 +68,6 @@ public class PersonDetail
         {
             throw new IllegalArgumentException("The surname: " + getSurname() + " is not valid");
         }
-
     }
 
 

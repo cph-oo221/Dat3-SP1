@@ -1,30 +1,24 @@
 package dat.dao;
 
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ZipDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static ZipDAO instance;
-    private ZipDAO()
-    {
 
-    }
-
-    public static ZipDAO getInstance(EntityManagerFactory emf)
+    public static ZipDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new ZipDAO();
         }
-        instance.setEmf(emf);
-        return instance;
-    }
 
-    // Must be run after every getInstance() call, to avoid nullpointer exception
-    private void setEmf(EntityManagerFactory emf)
-    {
-        this.emf = emf;
+        return instance;
     }
 }

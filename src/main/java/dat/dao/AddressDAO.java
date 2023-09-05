@@ -1,32 +1,30 @@
 package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
+import jakarta.persistence.Access;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddressDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static AddressDAO instance;
-    private AddressDAO()
-    {
 
-    }
 
-    public static AddressDAO getInstance(EntityManagerFactory emf)
+    public static AddressDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new AddressDAO();
         }
-        instance.setEmf(emf);
         return instance;
     }
-    private void setEmf(EntityManagerFactory emf)
-    {
-        this.emf = emf;
-    }
+
 
     public AdressIdStreetNumberDTO getIdByStreetAndNumber(String street, String number)
     {
@@ -39,4 +37,6 @@ public class AddressDAO
                 .getSingleResult();
         }
     }
+
+
 }

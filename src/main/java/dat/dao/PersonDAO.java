@@ -3,28 +3,24 @@ package dat.dao;
 import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PersonDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static PersonDAO instance;
-    private PersonDAO() {}
 
-    public static PersonDAO getInstance(EntityManagerFactory emf)
+    public static PersonDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new PersonDAO();
         }
-        instance.setEmf(emf);
         return instance;
-    }
-
-    // Must be run after every getInstance() call, to avoid nullpointer exception
-    private void setEmf(EntityManagerFactory emf)
-    {
-        this.emf = emf;
     }
 
     public Person createPerson(Person person)
