@@ -32,7 +32,7 @@ HobbyMatch is an innovative web application designed to help users find meaningf
 ---
 
 ### EER-diagram
-![](documentation/md/EE-DIAGRAM.png)
+![](documentation/md/EER-Diagram.png)
 
 ---
 
