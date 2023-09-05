@@ -1,5 +1,7 @@
 package dat.entities;
 
+import dat.config.HibernateConfig;
+import dat.dao.AddressDAO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,10 +35,10 @@ public class PersonDetail
     @MapsId
     private Person person;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy = "personDetail", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "personDetail", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Phone> phoneSet = new HashSet<>();
 
     public void addPhone(Phone phone)
@@ -50,13 +52,24 @@ public class PersonDetail
     }
 
     @PrePersist
-    public void verifyEmail()
+    public void onCreate()
     {
         if (!validEmail())
         {
             throw new IllegalArgumentException("The Email: " + getEmail() + " is not valid");
         }
+
+        if (getPassword().length() < 8 || getPassword().length() > 25)
+        {
+            throw new IllegalArgumentException("The password: " + getPassword() + " is not valid");
+        }
+
+        if (getSurname().length() < 2 || getSurname().length() > 45)
+        {
+            throw new IllegalArgumentException("The surname: " + getSurname() + " is not valid");
+        }
     }
+
 
     @PreUpdate
     public void verifyUpdatedEmail()

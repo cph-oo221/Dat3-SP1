@@ -5,26 +5,25 @@ import dat.entities.Person;
 import dat.entities.Phone;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PhoneDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static PhoneDAO instance;
-    private PhoneDAO()
-    {
 
-    }
-
-    public PhoneDAO getInstance(EntityManagerFactory emf)
+    public static PhoneDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new PhoneDAO();
         }
-        this.emf = emf;
         return instance;
     }
 

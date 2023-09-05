@@ -1,24 +1,22 @@
 package dat.dao;
 
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InterestDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static InterestDAO instance;
-    private InterestDAO()
-    {
-
-    }
-
-    public InterestDAO getInstance(EntityManagerFactory emf)
+    public static InterestDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new InterestDAO();
         }
-        this.emf = emf;
         return instance;
     }
 }

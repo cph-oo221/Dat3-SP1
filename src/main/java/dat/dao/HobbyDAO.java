@@ -5,28 +5,28 @@ import dat.entities.Interests;
 import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HobbyDAO
 {
-    EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     private static HobbyDAO instance;
-    private HobbyDAO()
-    {
 
-    }
-
-    public HobbyDAO getInstance(EntityManagerFactory emf)
+    public static HobbyDAO getInstance(EntityManagerFactory _emf)
     {
         if (instance == null)
         {
+            emf = _emf;
             instance = new HobbyDAO();
         }
-        this.emf = emf;
         return instance;
     }
+
 
     public void addHobby(Hobby hobby)
     {
