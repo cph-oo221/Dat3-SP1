@@ -20,13 +20,13 @@ public class PersonDetail
     @Id
     private Integer id;
 
-    @Column(length = 45)
+    @Column(length = 45, nullable = false)
     private String surname;
 
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String email;
 
-    @Column(length = 25)
+    @Column(length = 25, nullable = false)
     private String password;
 
     @OneToOne
@@ -36,7 +36,7 @@ public class PersonDetail
     @ManyToOne
     private Address address;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "personDetail", fetch = FetchType.EAGER)
     Set<Phone> phoneSet = new HashSet<>();
 
     public void addPhone(Phone phone)
