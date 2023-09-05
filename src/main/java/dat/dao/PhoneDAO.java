@@ -52,7 +52,7 @@ public class PhoneDAO
         {
             em.getTransaction().begin();
             em.remove(phone);
-            phone.getPersonDetail().getPhoneSet().remove(phone);
+            phone.getPerson().getPhoneSet().remove(phone);
             em.getTransaction().commit();
         }
     }

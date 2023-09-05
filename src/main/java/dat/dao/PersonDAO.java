@@ -2,7 +2,6 @@ package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Person;
-import dat.entities.PersonDetail;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
@@ -29,14 +28,14 @@ public class PersonDAO
     public Person createPerson(Person person)
     {
         AddressDAO adressDAO = AddressDAO.getInstance(emf);
-        String street = person.getPersonDetail().getAddress().getStreet();
-        String number = person.getPersonDetail().getAddress().getNumber();
+        String street = person.getAddress().getStreet();
+        String number = person.getAddress().getNumber();
 
 
         try
         {
             AdressIdStreetNumberDTO aDTO = adressDAO.getIdByStreetAndNumber(street, number);
-            person.getPersonDetail().getAddress().setId(aDTO.getId());
+            person.getAddress().setId(aDTO.getId());
         }
         catch (NoResultException e)
         {

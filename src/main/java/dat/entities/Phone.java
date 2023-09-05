@@ -30,7 +30,7 @@ public class Phone
     private PhoneType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private PersonDetail personDetail;
+    private Person person;
 
     public Phone(String number, PhoneType type)
     {

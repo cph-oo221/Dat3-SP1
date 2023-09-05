@@ -9,6 +9,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Getter
 @Setter
@@ -25,24 +26,76 @@ public class Person
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Interests> interests = new HashSet<>();
 
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-    private PersonDetail personDetail;
+    @Column(length = 45, nullable = false)
+    private String surname;
 
-    public Person(String name, LocalDate birthdate)
+    @Column(length = 100, nullable = false)
+    private String email;
+
+    @Column(length = 25, nullable = false)
+    private String password;
+
+    @OneToOne
+    @MapsId
+    private Person person;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Address address;
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Phone> phoneSet = new HashSet<>();
+
+    public Person(String name, String surname, LocalDate birthdate, String email, String password, Address address)
     {
         this.name = name;
+        this.surname = surname;
         this.birthdate = birthdate;
+        this.email = email;
+        this.password = password;
+        this.address = address;
     }
 
-    public PersonDetail addPersonDetail(String surname, String email, String password, Address address)
+    public void addPhone(Phone phone)
     {
-        PersonDetail personDetail = new PersonDetail(surname, email, password, address);
-        this.personDetail = personDetail;
+        this.phoneSet.add(phone);
 
-        if (personDetail != null)
+        if (phone != null)
         {
-            personDetail.setPerson(this);
+            phone.setPerson(this);
         }
-        return personDetail;
+    }
+
+    @PrePersist
+    public void onCreate()
+    {
+        if (!validEmail())
+        {
+            throw new IllegalArgumentException("The Email: " + getEmail() + " is not valid");
+        }
+
+        if (getPassword().length() < 8 || getPassword().length() > 25)
+        {
+            throw new IllegalArgumentException("The password: " + getPassword() + " is not valid");
+        }
+
+        if (getSurname().length() < 2 || getSurname().length() > 45)
+        {
+            throw new IllegalArgumentException("The surname: " + getSurname() + " is not valid");
+        }
+    }
+
+
+    @PreUpdate
+    public void verifyUpdatedEmail()
+    {
+        if (!validEmail())
+        {
+            throw new IllegalArgumentException("The Email: " + getEmail() + " is not valid");
+        }
+    }
+
+    private boolean validEmail()
+    {
+        return Pattern.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", getEmail());
     }
 }

@@ -15,17 +15,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MainTest
 {
 
-    private PhoneDAO phoneDAO;
-    private HobbyDAO hobbyDAO;
-    private PersonDAO personDAO;
-    private EntityManagerFactory emf;
+    private static PhoneDAO phoneDAO;
+    private static HobbyDAO hobbyDAO;
+    private static PersonDAO personDAO;
+    private static EntityManagerFactory emf;
 
     @BeforeAll
-    void setUp()
+    static void setUp()
     {
         emf = HibernateConfig.getEntityManagerFactoryConfig("hobbiestest", "create");
         phoneDAO = PhoneDAO.getInstance(emf);
@@ -48,18 +48,15 @@ class MainTest
     @Test
     void cascadePersistPerson()
     {
-        Person p = new Person("John", LocalDate.of(1990, 1, 1));
-        PersonDetail pd = p.addPersonDetail("Doe", "john@email.com",
-                "password", new Address("sovsevej", "1", 2750));
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
 
         personDAO.createPerson(p);
-
-
     }
 
 
     @AfterAll
-    void tearDown()
+    static void tearDown()
     {
         emf.close();
     }

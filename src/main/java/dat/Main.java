@@ -15,16 +15,11 @@ public class Main
     {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig("hobbiestest", "update");
         PersonDAO personDAO = PersonDAO.getInstance(emf);
-        Person p = new Person("John", LocalDate.of(1990, 1, 1));
-        PersonDetail pd = p.addPersonDetail("Doe", "joehn@email.com", "password",
-                new Address("sovsevej", "1", 2750));
        // personDAO.createPerson(p);
 
         /*Person p1 = new Person("Jane", LocalDate.of(1994, 1, 1));
         PersonDetail pd1 = p1.addPersonDetail("Doe", "jane@email.com",
                 "password", new Address("sovsevej", "1", 2750));
         personDAO.createPerson(p1);*/
-
-        personDAO.removePerson(p);
     }
 }

@@ -32,7 +32,7 @@ public class Address
     private Zip zip;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<PersonDetail> personDetail = new HashSet<>();
+    Set<Person> persons = new HashSet<>();
 
 
     public Address(String street, String number, Integer zipcode)
