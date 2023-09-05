@@ -10,18 +10,19 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "zipcode")
 public class Zip
 {
     @Id
-    @Column(name = "z_id", unique = true, nullable = false)
+    @Column(name = "zip", unique = true, nullable = false)
     private Integer id;
 
-    @Column(length = 45)
+    @Column(name = "city_name", length = 45)
     private String city;
 
-    @Column(length = 45)
+    @Column(name = "region_name", length = 45)
     private String region;
 
-    @Column(length = 45)
+    @Column(name = "municipality_name",length = 45)
     private String municipality;
 }
