@@ -21,15 +21,17 @@ public class Address
     @Column(name = "a_id")
     private Integer id;
 
+    @Column(nullable = false, length = 45)
     private String street;
 
+    @Column(nullable = false, length = 10)
     private String number;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "z_id")
     private Zip zip;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<PersonDetail> personDetail = new HashSet<>();
 
 
