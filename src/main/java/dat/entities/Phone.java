@@ -26,6 +26,7 @@ public class Phone
     private String number;
 
     @Column(name = "type")
+    @Enumerated(value = EnumType.STRING)
     private PhoneType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
