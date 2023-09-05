@@ -28,7 +28,7 @@ public class Phone
     @Column(name = "type")
     private PhoneType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private PersonDetail personDetail;
 
     public Phone(String number, PhoneType type)

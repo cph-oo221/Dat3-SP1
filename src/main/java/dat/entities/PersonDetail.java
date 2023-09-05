@@ -33,7 +33,7 @@ public class PersonDetail
     @MapsId
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
 
     @OneToMany(mappedBy = "personDetail", fetch = FetchType.EAGER)
