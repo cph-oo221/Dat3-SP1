@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,13 +34,15 @@ public class Person
         this.birthdate = birthdate;
     }
 
-    public void addPersonDetail(PersonDetail personDetail)
+    public PersonDetail addPersonDetail(String surname, String email, String password, Address address)
     {
+        PersonDetail personDetail = new PersonDetail(surname, email, password, address);
         this.personDetail = personDetail;
 
         if (personDetail != null)
         {
             personDetail.setPerson(this);
         }
+        return personDetail;
     }
 }

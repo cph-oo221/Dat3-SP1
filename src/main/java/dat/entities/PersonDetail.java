@@ -41,6 +41,14 @@ public class PersonDetail
     @OneToMany(mappedBy = "personDetail", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Phone> phoneSet = new HashSet<>();
 
+    public PersonDetail(String surname, String email, String password, Address address)
+    {
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+
     public void addPhone(Phone phone)
     {
         this.phoneSet.add(phone);

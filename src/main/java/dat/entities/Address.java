@@ -28,18 +28,18 @@ public class Address
     private String number;
 
     @ManyToOne()
-    @JoinColumn(name = "z_id")
+    @JoinColumn(name = "zip")
     private Zip zip;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<PersonDetail> personDetail = new HashSet<>();
 
 
-    public Address(String street, String number, Zip zip)
+    public Address(String street, String number, Integer zipcode)
     {
         this.street = street.toLowerCase();
         this.number = number;
-        this.zip = zip;
+        this.zip = new Zip(zipcode);
     }
 
     public void addZip(Zip zip)

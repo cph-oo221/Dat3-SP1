@@ -5,11 +5,10 @@ import dat.dao.HobbyDAO;
 import dat.dao.PersonDAO;
 import dat.dao.PhoneDAO;
 import dat.entities.*;
+import dat.scripts.FillScripts;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -29,22 +28,42 @@ class MainTest
     @BeforeAll
     void setUp()
     {
+        emf = HibernateConfig.getEntityManagerFactoryConfig("hobbiestest", "create");
         phoneDAO = PhoneDAO.getInstance(emf);
         hobbyDAO = HobbyDAO.getInstance(emf);
-        emf = HibernateConfig.getEntityManagerFactoryConfig("hobbiestest", "create");
+        personDAO = PersonDAO.getInstance(emf);
     }
+
+    @BeforeEach
+    void fillDatabaseBeforeEachTest()
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.createNativeQuery(FillScripts.zipcodeFill).executeUpdate();
+            em.getTransaction().commit();
+        }
+    }
+
+
+    @Test
+    void cascadePersistPerson()
+    {
+        Person p = new Person("John", LocalDate.of(1990, 1, 1));
+        PersonDetail pd = p.addPersonDetail("Doe", "john@email.com",
+                "password", new Address("sovsevej", "1", 2750));
+
+        personDAO.createPerson(p);
+
+
+    }
+
 
     @AfterAll
     void tearDown()
     {
         emf.close();
     }
-
-    private void fillDatabase()
-    {
-
-    }
-
 
     @Test
     void getUserdata()

@@ -25,4 +25,9 @@ public class Zip
 
     @Column(name = "municipality_name",length = 45)
     private String municipality;
+
+    public Zip(Integer id)
+    {
+        this.id = id;
+    }
 }
