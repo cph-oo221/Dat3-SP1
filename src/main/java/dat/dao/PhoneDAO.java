@@ -12,13 +12,19 @@ public class PhoneDAO
 
     }
 
-    public PhoneDAO getInstance(EntityManagerFactory emf)
+    public static PhoneDAO getInstance(EntityManagerFactory emf)
     {
         if (instance == null)
         {
             instance = new PhoneDAO();
         }
-        this.emf = emf;
+        instance.setEmf(emf);
         return instance;
+    }
+
+    // Must be run after every getInstance() call, to avoid nullpointer exception
+    private void setEmf(EntityManagerFactory emf)
+    {
+        this.emf = emf;
     }
 }

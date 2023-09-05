@@ -37,7 +37,7 @@ public class Address
 
     public Address(String street, String number, Zip zip)
     {
-        this.street = street;
+        this.street = street.toLowerCase();
         this.number = number;
         this.zip = zip;
     }

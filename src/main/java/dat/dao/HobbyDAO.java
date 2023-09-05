@@ -12,13 +12,19 @@ public class HobbyDAO
 
     }
 
-    public HobbyDAO getInstance(EntityManagerFactory emf)
+    public static HobbyDAO getInstance(EntityManagerFactory emf)
     {
         if (instance == null)
         {
             instance = new HobbyDAO();
         }
-        this.emf = emf;
+        instance.setEmf(emf);
         return instance;
+    }
+
+    // Must be run after every getInstance() call, to avoid nullpointer exception
+    private void setEmf(EntityManagerFactory emf)
+    {
+        this.emf = emf;
     }
 }

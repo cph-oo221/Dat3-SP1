@@ -12,13 +12,19 @@ public class ZipDAO
 
     }
 
-    public ZipDAO getInstance(EntityManagerFactory emf)
+    public static ZipDAO getInstance(EntityManagerFactory emf)
     {
         if (instance == null)
         {
             instance = new ZipDAO();
         }
-        this.emf = emf;
+        instance.setEmf(emf);
         return instance;
+    }
+
+    // Must be run after every getInstance() call, to avoid nullpointer exception
+    private void setEmf(EntityManagerFactory emf)
+    {
+        this.emf = emf;
     }
 }
