@@ -89,7 +89,7 @@ public class PhoneDAO
 
 
     // TODO - THIS IS NOT NEED, MADE BY MISSTAKE
-    public List<Phone> getPhonesByHobby(Hobby hobby)
+    public List<Phone> getAllNumbersByHobby(Hobby hobby)
     {
         try(EntityManager em = emf.createEntityManager())
         {
