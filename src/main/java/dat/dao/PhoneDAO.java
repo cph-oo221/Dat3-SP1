@@ -29,8 +29,56 @@ public class PhoneDAO
     }
 
 
+    public void addPhone(Phone phone)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(phone);
+            em.getTransaction().commit();
+        }
+    }
+
+    public Phone find(int id)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Phone.class, id);
+        }
+    }
+
+    public void deletePhone(Phone phone)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.remove(phone);
+            phone.getPersonDetail().getPhoneSet().remove(phone);
+            em.getTransaction().commit();
+        }
+    }
+
+    public void editPhone(Phone phone)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.merge(phone);
+            em.getTransaction().commit();
+        }
+    }
+
+    public List<Phone> getAllPhones()
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT p from Phone p", Phone.class).getResultList();
+        }
+    }
+
+
     // US 2
-    public List<Phone> getAllPhones(Person person)
+    public List<Phone> getAllNumbersByPerson(Person person)
     {
         try(EntityManager em = emf.createEntityManager())
         {
@@ -40,12 +88,13 @@ public class PhoneDAO
     }
 
 
-    // US 4
-    public String getPhoneByHobby(Hobby hobby)
+    // TODO - THIS IS NOT NEED, MADE BY MISSTAKE
+    public List<Phone> getPhonesByHobby(Hobby hobby)
     {
         try(EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery(
+            return em.createQuery("SELECT p.personDetail.phoneSet from Phone p Join p.personDetail.person.interests i where i.hobby.id = :id", Phone.class)
+                    .setParameter("id", hobby.getH_id()).getResultList();
         }
     }
 }
