@@ -35,11 +35,11 @@ public class Address
     Set<PersonDetail> personDetail = new HashSet<>();
 
 
-    public Address(String street, String number, Zip zip)
+    public Address(String street, String number, Integer zipcode)
     {
         this.street = street.toLowerCase();
         this.number = number;
-        this.zip = zip;
+        this.zip = new Zip(zipcode);
     }
 
     public void addZip(Zip zip)

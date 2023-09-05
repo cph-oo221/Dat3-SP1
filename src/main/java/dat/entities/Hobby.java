@@ -1,7 +1,6 @@
 package dat.entities;
 
 import jakarta.persistence.*;
-import jdk.incubator.foreign.CLinker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
