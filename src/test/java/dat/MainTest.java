@@ -44,12 +44,14 @@ class MainTest
     @Test
     void getAllPhoneNumbersForPerson()
     {
+        // US - 2
         // TODO: Write test
     }
 
     @Test
     void getAllPersonsByHobby()
     {
+        // US - 3
         // TODO: Write test
     }
 
