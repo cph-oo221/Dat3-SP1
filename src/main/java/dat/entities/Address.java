@@ -28,7 +28,7 @@ public class Address
     private String number;
 
     @ManyToOne()
-    @JoinColumn(name = "z_id")
+    @JoinColumn(name = "zip")
     private Zip zip;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
