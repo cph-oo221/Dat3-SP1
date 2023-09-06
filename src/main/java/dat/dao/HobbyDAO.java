@@ -1,5 +1,6 @@
 package dat.dao;
 
+import dat.dto.HobbiesCountDTO;
 import dat.entities.Hobby;
 import dat.entities.Interests;
 import dat.entities.Person;
@@ -74,13 +75,24 @@ public class HobbyDAO
 
 
     // US - 4
-    public Integer getHobbyCount(Hobby hobby)
+    public Long getHobbyCount(Hobby hobby)
     {
         try(EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT COUNT(p) FROM Person p Join p.interests h WHERE h.hobby.h_id = :hobbyId", Integer.class)
+            return em.createQuery("SELECT COUNT(p) FROM Person p Join p.interests h WHERE h.hobby.h_id = :hobbyId", Long.class)
                     .setParameter("hobbyId", hobby.getH_id())
                     .getSingleResult();
         }
     }
-}
+
+
+    // US - 5
+    public List<HobbiesCountDTO> getHobbiesCount()
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT new dat.dto.HobbiesCountDTO(h, COUNT(i.person.p_id)) From Interests i Join i.hobby h GROUP BY h", HobbiesCountDTO.class)
+                    .getResultList();
+        }
+    }
+ }
