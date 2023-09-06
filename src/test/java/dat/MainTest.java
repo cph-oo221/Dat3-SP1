@@ -4,6 +4,7 @@ import dat.config.HibernateConfig;
 import dat.dao.HobbyDAO;
 import dat.dao.PersonDAO;
 import dat.dao.PhoneDAO;
+import dat.dao.ZipDAO;
 import dat.entities.*;
 import dat.scripts.FillScripts;
 import jakarta.persistence.EntityManager;
@@ -23,6 +24,7 @@ class MainTest
     private PhoneDAO phoneDAO;
     private HobbyDAO hobbyDAO;
     private PersonDAO personDAO;
+    private ZipDAO zipDAO;
     private EntityManagerFactory emf;
 
     @BeforeAll
@@ -32,6 +34,7 @@ class MainTest
         phoneDAO = PhoneDAO.getInstance(emf);
         hobbyDAO = HobbyDAO.getInstance(emf);
         personDAO = PersonDAO.getInstance(emf);
+        zipDAO = ZipDAO.getInstance(emf);
 
         try (EntityManager em = emf.createEntityManager())
         {
@@ -135,6 +138,12 @@ class MainTest
         List<Person> persons = hobbyDAO.getAllPersonsByHobby(hobby);
         int expected = 2;
         assertEquals(expected, persons.size());
+    }
+
+    @Test
+    void getAllCityAndZip()
+    {
+        assertEquals(zipDAO.getAllCityAndZip().size(), 1099);
     }
 
     @Test

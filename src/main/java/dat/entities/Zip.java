@@ -30,4 +30,9 @@ public class Zip
     {
         this.id = id;
     }
+    public Zip(Integer id, String city)
+    {
+        this.id = id;
+        this.city = city;
+    }
 }
