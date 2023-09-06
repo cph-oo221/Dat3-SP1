@@ -55,7 +55,7 @@ class MainTest
     void cascadePersistPerson()
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("Søvej", "64", 2880));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
 
         personDAO.createPerson(p);
@@ -68,7 +68,7 @@ class MainTest
     void getAllInfoOnPerson()
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("aldershvilevej", "46", 2750));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
 
         personDAO.createPerson(p);
@@ -86,7 +86,7 @@ class MainTest
     void getAllInfoFromPhone()
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("Lindeholmd", "12", 2750));
         Phone phone = new Phone("12345678", PhoneType.HOME);
         p.addPhone(phone);
 
@@ -109,7 +109,7 @@ class MainTest
     void getAllPhoneNumbersForPerson()
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("aldershvilevej", "1", 2880));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
         p.addPhone(new Phone("22446688", PhoneType.MOBILE));
 
@@ -126,7 +126,7 @@ class MainTest
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
                 "john@email.com", "password", new Address("Sovsevej", "1", 2750));
         Person p2 = new Person("1John", "Do1e",  LocalDate.of(1991, 1, 1),
-                "j2ohn@email.com", "passwo4rd", new Address("Sovse2vej", "12", 2750));
+                "j2ohn@email.com", "passwo4rd", new Address("Sovsevej", "12", 2750));
 
         Hobby hobby = new Hobby();
         hobbyDAO.addHobby(hobby);
@@ -152,15 +152,14 @@ class MainTest
     void getHobbyListWithAmountOfPeople()
     {
         // US - 5
-
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("Majvej", "10", 2750));
         p.addInterest(hobbyDAO.find(1));
 
         personDAO.createPerson(p);
 
         List<HobbiesCountDTO> hobbyList = hobbyDAO.getHobbiesCount();
-        int expected = 1;
+        int expected = 2;
         assertEquals(expected, hobbyList.size());
     }
 
