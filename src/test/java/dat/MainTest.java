@@ -38,15 +38,26 @@ class MainTest
         hobbyDAO = HobbyDAO.getInstance(emf);
         personDAO = PersonDAO.getInstance(emf);
         zipDAO = ZipDAO.getInstance(emf);
+        addressDAO = AddressDAO.getInstance(emf);
 
         try (EntityManager em = emf.createEntityManager())
         {
+
             em.getTransaction().begin();
+            em.createNativeQuery("DELETE FROM interests").executeUpdate();
+            em.createNativeQuery("DELETE FROM phone").executeUpdate();
+            em.createNativeQuery("DELETE FROM person").executeUpdate();
+            em.createNativeQuery("DELETE FROM address").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE interests_i_id_seq RESTART WITH 1;").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE phone_phone_id_seq RESTART WITH 1;").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE person_p_id_seq RESTART WITH 1;").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE address_a_id_seq RESTART WITH 1;").executeUpdate();
             em.createNativeQuery(FillScripts.ZIPCODE_FILL).executeUpdate();
-            em.createNativeQuery("ALTER SEQUENCE hobby_h_id_seq RESTART WITH 1;");
             em.createNativeQuery(FillScripts.HOBBY_FILL).executeUpdate();
             em.getTransaction().commit();
+
         }
+
     }
     @AfterAll
     void tearDown()
@@ -71,7 +82,7 @@ class MainTest
     void cascadeRemovePerson()
     {
         Person p = new Person("Joe", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("fiskevej", "1", 2750));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
 
         p = personDAO.createPerson(p);
@@ -90,7 +101,7 @@ class MainTest
     @Test
     void dontRemoveAddressIfMorePeople()
     {
-        Person p1 = new Person("Joe", "Doe",  LocalDate.of(1990, 1, 1),
+        Person p1 = new Person("lorteJoe", "Doe",  LocalDate.of(1990, 1, 1),
                 "john@email.com", "password", new Address("Sovsevej", "1", 2750));
         Person p2 = new Person("Jane", "Doe",  LocalDate.of(1995, 2, 1),
                 "john@email.com", "password", new Address("Sovsevej", "1", 2750));
@@ -111,7 +122,7 @@ class MainTest
     @Test
     void getAllInfoOnPerson()
     {
-        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+        Person p = new Person("migJoe", "Doe",  LocalDate.of(1990, 1, 1),
                 "john@email.com", "password", new Address("aldershvilevej", "46", 2750));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
 
@@ -168,7 +179,7 @@ class MainTest
     void getAllPersonsByHobby()
     {
         Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
-                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+                "john@email.com", "password", new Address("Sovevej", "1", 2750));
         Person p2 = new Person("1John", "Do1e",  LocalDate.of(1991, 1, 1),
                 "j2ohn@email.com", "passwo4rd", new Address("Sovsevej", "12", 2750));
 
@@ -196,7 +207,7 @@ class MainTest
     void getHobbyListWithAmountOfPeople()
     {
         // US - 5
-        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+        Person p = new Person("Arne", "Doe",  LocalDate.of(1990, 1, 1),
                 "john@email.com", "password", new Address("Majvej", "10", 2750));
         p.addInterest(hobbyDAO.find(1));
 

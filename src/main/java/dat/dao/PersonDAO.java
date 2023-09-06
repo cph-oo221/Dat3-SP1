@@ -98,7 +98,7 @@ public class PersonDAO
             if (addressDAO.getPeopleByAdress(a.getStreet(), a.getNumber()).size() <= 0)
             {
                 // if not, remove the address
-                AddressDAO.getInstance(emf).removeAddress(a);
+               addressDAO.removeAddress(a);
             }
         }
     }
