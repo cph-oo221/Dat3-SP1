@@ -80,6 +80,14 @@ public class Person
         }
     }
 
+    public Interests addInterest(Hobby hobby)
+    {
+        Interests interests = new Interests();
+        interests.setPerson(this);
+        interests.setHobby(hobby);
+        return interests;
+    }
+
 
     @PreUpdate
     public void verifyUpdatedEmail()

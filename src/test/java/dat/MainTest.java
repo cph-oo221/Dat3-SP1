@@ -54,7 +54,7 @@ class MainTest
 
         personDAO.createPerson(p);
 
-        assertEquals("John", personDAO.read(p.getP_id()).getName());
+        assertEquals("John", personDAO.readPerson(p.getP_id()).getName());
     }
 
 
@@ -73,8 +73,13 @@ class MainTest
     @Test
     void getAllPhoneNumbersForPerson()
     {
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        p.addPhone(new Phone("12345678", PhoneType.HOME));
+        p.addPhone(new Phone("22446688", PhoneType.MOBILE));
+        personDAO.createPerson(p);
         // US - 2
-        List<Phone> phoneList = phoneDAO.getAllNumbersByPerson(new Person());
+        List<Phone> phoneList = phoneDAO.getAllNumbersByPerson(p);
         int expected = 2;
         assertEquals(expected, phoneList.size());
     }
@@ -82,8 +87,10 @@ class MainTest
     @Test
     void getAllPersonsByHobby()
     {
+        Hobby hobby = new Hobby();
+        hobbyDAO.addHobby(hobby);
         // US - 3
-        Hobby hobby = hobbyDAO.find(1);
+        hobbyDAO.find(hobby.getH_id()-1);
         List<Person> hobbies = hobbyDAO.getAllPersonsByHobby(hobby);
         int expected = 2;
         assertEquals(expected, hobbies.size());

@@ -51,6 +51,25 @@ public class PersonDAO
         }
     }
 
+    public Person readPerson(Integer i)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Person.class, i);
+        }
+    }
+
+
+    public void updatePerson(Person person)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+        }
+    }
+
     public void removePerson(Person p)
     {
         try (EntityManager em = emf.createEntityManager())
