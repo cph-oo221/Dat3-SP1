@@ -79,4 +79,12 @@ public class PersonDAO
             em.getTransaction().commit();
         }
     }
+
+    public Person readPerson(Integer pId)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Person.class, pId);
+        }
+    }
 }
