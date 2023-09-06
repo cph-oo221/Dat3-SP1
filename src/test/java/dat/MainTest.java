@@ -19,29 +19,32 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest
 {
 
-    private static PhoneDAO phoneDAO;
-    private static HobbyDAO hobbyDAO;
-    private static PersonDAO personDAO;
-    private static EntityManagerFactory emf;
+    private PhoneDAO phoneDAO;
+    private HobbyDAO hobbyDAO;
+    private PersonDAO personDAO;
+    private EntityManagerFactory emf;
 
     @BeforeAll
-    static void setUp()
+    void setUp()
     {
         emf = HibernateConfig.getEntityManagerFactoryConfig("hobbiestest", "create");
         phoneDAO = PhoneDAO.getInstance(emf);
         hobbyDAO = HobbyDAO.getInstance(emf);
         personDAO = PersonDAO.getInstance(emf);
+
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.createNativeQuery(FillScripts.ZIPCODE_FILL).executeUpdate();
+            em.createNativeQuery(FillScripts.HOBBY_FILL).executeUpdate();
+            em.getTransaction().commit();
+        }
     }
 
     @BeforeEach
     void fillDatabaseBeforeEachTest()
     {
-        try (EntityManager em = emf.createEntityManager())
-        {
-            em.getTransaction().begin();
-            em.createNativeQuery(FillScripts.ZIPCODE_FILL).executeUpdate();
-            em.getTransaction().commit();
-        }
+
     }
 
 
@@ -59,7 +62,7 @@ class MainTest
 
 
     @AfterAll
-    static void tearDown()
+    void tearDown()
     {
         emf.close();
     }
