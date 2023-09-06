@@ -82,9 +82,15 @@ public class Person
 
     public Interests addInterest(Hobby hobby)
     {
+        //Creates interest
         Interests interests = new Interests();
         interests.setPerson(this);
         interests.setHobby(hobby);
+
+        //adds interests to sets in Person and Hobby
+        getInterests().add(interests);
+        hobby.getInterests().add(interests);
+
         return interests;
     }
 

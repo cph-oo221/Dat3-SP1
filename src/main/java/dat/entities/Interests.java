@@ -16,8 +16,8 @@ public class Interests
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer i_id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Person person;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     Hobby hobby;
 }

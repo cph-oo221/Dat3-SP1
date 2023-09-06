@@ -90,10 +90,20 @@ class MainTest
     @Test
     void getAllPersonsByHobby()
     {
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        Person p2 = new Person("1John", "Do1e",  LocalDate.of(1991, 1, 1),
+                "j2ohn@email.com", "passwo4rd", new Address("Sovse2vej", "12", 2750));
+
         Hobby hobby = new Hobby();
         hobbyDAO.addHobby(hobby);
+
         // US - 3
-        hobbyDAO.find(hobby.getH_id()-1);
+        hobby = hobbyDAO.find(hobby.getH_id()-1);
+        p.addInterest(hobby);
+        p2.addInterest(hobby);
+        personDAO.createPerson(p);
+        personDAO.createPerson(p2);
         List<Person> hobbies = hobbyDAO.getAllPersonsByHobby(hobby);
         int expected = 2;
         assertEquals(expected, hobbies.size());
