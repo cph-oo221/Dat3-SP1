@@ -40,13 +40,11 @@ class MainTest
             em.getTransaction().commit();
         }
     }
-
-    @BeforeEach
-    void fillDatabaseBeforeEachTest()
+    @AfterAll
+    void tearDown()
     {
-
+        emf.close();
     }
-
 
     @Test
     void cascadePersistPerson()
@@ -61,11 +59,6 @@ class MainTest
     }
 
 
-    @AfterAll
-    void tearDown()
-    {
-        emf.close();
-    }
 
     @Test
     void getUserdata()
