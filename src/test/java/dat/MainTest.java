@@ -39,7 +39,7 @@ class MainTest
         try (EntityManager em = emf.createEntityManager())
         {
             em.getTransaction().begin();
-            em.createNativeQuery(FillScripts.zipcodeFill).executeUpdate();
+            em.createNativeQuery(FillScripts.ZIPCODE_FILL).executeUpdate();
             em.getTransaction().commit();
         }
     }
