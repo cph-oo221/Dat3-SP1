@@ -1,10 +1,10 @@
 package dat.entities;
 
+import dat.dao.AddressDAO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 @Entity
 public class Person
 {
@@ -25,21 +24,20 @@ public class Person
     @Column(length = 45, nullable = false)
     private String surname;
     private LocalDate birthdate;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private Set<Interests> interests = new HashSet<>();
-
-
     @Column(length = 100, nullable = false)
     private String email;
-
     @Column(length = 25, nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // related entities
+    @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Phone> phoneSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private Set<Interests> interests = new HashSet<>();
 
     public Person(String name, String surname, LocalDate birthdate, String email, String password, Address address)
     {
@@ -49,6 +47,7 @@ public class Person
         this.email = email;
         this.password = password;
         this.address = address;
+        address.addPerson(this);
     }
 
     public void addPhone(Phone phone)
@@ -89,6 +88,17 @@ public class Person
             throw new IllegalArgumentException("The Email: " + getEmail() + " is not valid");
         }
     }
+
+    @PreRemove
+    public void onRemove()
+    {
+        // remove person from address
+        if (getAddress().getPersons().size() >= 1)
+        {
+            address.removePerson(this);
+        }
+    }
+
 
     private boolean validEmail()
     {

@@ -31,7 +31,7 @@ public class Address
     @JoinColumn(name = "zip")
     private Zip zip;
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     Set<Person> persons = new HashSet<>();
 
 
@@ -45,5 +45,15 @@ public class Address
     public void addZip(Zip zip)
     {
         this.zip = zip;
+    }
+
+    public void removePerson(Person person)
+    {
+        this.persons.remove(person);
+    }
+
+    public void addPerson(Person person)
+    {
+        this.persons.add(person);
     }
 }

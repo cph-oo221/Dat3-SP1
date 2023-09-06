@@ -1,11 +1,16 @@
 package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
+import dat.entities.Address;
+import dat.entities.Person;
 import jakarta.persistence.Access;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddressDAO
@@ -26,17 +31,62 @@ public class AddressDAO
     }
 
 
-    public AdressIdStreetNumberDTO getIdByStreetAndNumber(String street, String number)
+    public Integer getIdByStreetAndNumber(String street, String number)
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT new dat.dto.AdressIdStreetNumberDTO(a.id, a.street, a.number) FROM Address a" +
-                            " WHERE a.street = :street AND a.number = :number", AdressIdStreetNumberDTO.class)
-                .setParameter("street", street)
-                .setParameter("number", number)
-                .getSingleResult();
+            try
+            {
+                street = street.toLowerCase();
+                return em.createQuery("SELECT a.id FROM Address a WHERE a.street = :street AND a.number = :number", Integer.class)
+                    .setParameter("street", street)
+                    .setParameter("number", number)
+                    .getSingleResult();
+            }
+            catch (NoResultException e)
+            {
+                return null;
+            }
         }
     }
 
+    public List<Person> getPeopleByAdress(String street, String number)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT p FROM Person p WHERE p.address.street = :street AND p.address.number = :number", Person.class)
+                .setParameter("street", street)
+                .setParameter("number", number)
+                .getResultList();
+        }
+    }
 
+    public void removeAddress(Address address)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.remove(address);
+            em.getTransaction().commit();
+        }
+    }
+
+    public Integer createAddress(Address address)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(address);
+            em.getTransaction().commit();
+            return address.getId();
+        }
+    }
+
+    public Address readAddress(Integer id)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            return em.find(Address.class, id);
+        }
+    }
 }

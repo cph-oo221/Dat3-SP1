@@ -1,6 +1,7 @@
 package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
+import dat.entities.Address;
 import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -8,12 +9,18 @@ import jakarta.persistence.NoResultException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
 public class PersonDAO
 {
     private static EntityManagerFactory emf;
+    private static AddressDAO addressDAO;
 
     private static PersonDAO instance;
+
+    private PersonDAO()
+    {
+        addressDAO = AddressDAO.getInstance(emf);
+    }
 
     public static PersonDAO getInstance(EntityManagerFactory _emf)
     {
@@ -27,19 +34,23 @@ public class PersonDAO
 
     public Person createPerson(Person person)
     {
-        AddressDAO adressDAO = AddressDAO.getInstance(emf);
         String street = person.getAddress().getStreet();
         String number = person.getAddress().getNumber();
 
 
-        try
-        {
-            AdressIdStreetNumberDTO aDTO = adressDAO.getIdByStreetAndNumber(street, number);
-            person.getAddress().setId(aDTO.getId());
-        }
-        catch (NoResultException e)
-        {
 
+        // check if the address already exists
+        Integer id = addressDAO.getIdByStreetAndNumber(street, number);
+
+        if (id == null)
+        {
+            // if not, create it
+            addressDAO.createAddress(person.getAddress());
+        }
+        else
+        {
+            // if yes, set the address from db
+            person.setAddress(addressDAO.readAddress(id));
         }
 
         try (EntityManager em = emf.createEntityManager())
@@ -49,15 +60,23 @@ public class PersonDAO
             em.getTransaction().commit();
             return person;
         }
+
     }
 
     public void removePerson(Person p)
     {
         try (EntityManager em = emf.createEntityManager())
         {
+            Address a = p.getAddress();
             em.getTransaction().begin();
             em.remove(p);
             em.getTransaction().commit();
+            // check if other people live at the same address
+            if (addressDAO.getPeopleByAdress(a.getStreet(), a.getNumber()).size() <= 0)
+            {
+                // if not, remove the address
+                AddressDAO.getInstance(emf).removeAddress(a);
+            }
         }
     }
 
