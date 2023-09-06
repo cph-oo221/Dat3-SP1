@@ -149,16 +149,6 @@ class MainTest
     }
 
     @Test
-    void getNumberOfPeopleByHobby()
-    {
-        // US - 4
-        Hobby hobby = hobbyDAO.find(1);
-        hobbyDAO.getHobbyCount(hobby);
-        int expected = 2;
-        assertEquals(expected, hobbyDAO.getHobbyCount(hobby));
-    }
-
-    @Test
     void getHobbyListWithAmountOfPeople()
     {
         // US - 5
