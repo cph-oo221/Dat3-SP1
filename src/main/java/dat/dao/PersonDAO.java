@@ -8,6 +8,8 @@ import jakarta.persistence.NoResultException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PersonDAO
 {
@@ -76,6 +78,16 @@ public class PersonDAO
         try(EntityManager em = emf.createEntityManager())
         {
             return em.find(Person.class, pId);
+        }
+    }
+
+    public List<Person> getAllPersonsByCity(String city)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT p FROM Person p WHERE p.address.zip.city = :city", Person.class)
+                    .setParameter("city", city)
+                    .getResultList();
         }
     }
 }

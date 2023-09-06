@@ -121,8 +121,54 @@ class MainTest
     @Test
     void getUsersByCity()
     {
-        // TODO: Write test
+        // US - 6
+        personDAO.createPerson(new Person("Ole", "Hansen",  LocalDate.of(1985, 4, 12),
+                "olehansen@email.com", "1234OLE123", new Address("Søvej", "14", 2880)));
+
+        personDAO.createPerson(new Person("Lars", "Olesen",  LocalDate.of(1965, 3, 8),
+                "Lars@hotmail.com", "notLars123FRE", new Address("Bindeleddet", "42", 2880)));
+
+        List<Person> personList = personDAO.getAllPersonsByCity("Bagsværd");
+        int expectedSize = 2;
+        int actualSize = personList.size();
+        assertEquals(expectedSize, actualSize);
+
+        String expectedName = "Ole";
+        String actualName = personList.get(0).getName();
+        assertEquals(expectedName, actualName);
+
+        String expectedSurname = "Hansen";
+        String actualSurname = personList.get(0).getSurname();
+        assertEquals(expectedSurname, actualSurname);
+
+        String expectedStreet = "søvej";
+        String actualStreet = personList.get(0).getAddress().getStreet();
+        assertEquals(expectedStreet, actualStreet);
+
+        String expectedNumber = "14";
+        String actualNumber = personList.get(0).getAddress().getNumber();
+        assertEquals(expectedNumber, actualNumber);
+
+
+        String expectedName2 = "Lars";
+        String actualName2 = personList.get(1).getName();
+        assertEquals(expectedName2, actualName2);
+
+        String expectedSurname2 = "Olesen";
+        String actualSurname2 = personList.get(1).getSurname();
+        assertEquals(expectedSurname2, actualSurname2);
+
+
+        String expectedStreet2 = "bindeleddet";
+        String actualStreet2 = personList.get(1).getAddress().getStreet();
+        assertEquals(expectedStreet2, actualStreet2);
+
+        String expectedNumber2 = "42";
+        String actualNumber2 = personList.get(1).getAddress().getNumber();
+        assertEquals(expectedNumber2, actualNumber2);
     }
+
+
 
     @Test
     void getPostCodesAndCityNames()
