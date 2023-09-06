@@ -81,7 +81,7 @@ public class PhoneDAO
     {
         try(EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT p.personDetail.phoneSet from Phone p where p.personDetail.person.id = :id", Phone.class)
+            return em.createQuery("SELECT p.person.phoneSet from Phone p where p.person.id = :id", Phone.class)
                     .setParameter("id", person.getP_id()).getResultList();
         }
     }
@@ -92,7 +92,7 @@ public class PhoneDAO
     {
         try(EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT p.personDetail.phoneSet from Phone p Join p.personDetail.person.interests i where i.hobby.id = :id", Phone.class)
+            return em.createQuery("SELECT p.person.phoneSet from Phone p Join p.person.interests i where i.hobby.id = :id", Phone.class)
                     .setParameter("id", hobby.getH_id()).getResultList();
         }
     }
