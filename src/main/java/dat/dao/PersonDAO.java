@@ -3,12 +3,15 @@ package dat.dao;
 import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Address;
 import dat.entities.Person;
+import dat.entities.Phone;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 public class PersonDAO
 {
@@ -60,7 +63,27 @@ public class PersonDAO
             em.getTransaction().commit();
             return person;
         }
+    }
 
+    public Person getAllInfoFromPhone(Phone phone) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Person> q = em.createQuery(
+                    "SELECT p FROM Person p JOIN p.phoneSet ph WHERE ph = :phone",
+                    Person.class
+            );
+            q.setParameter("phone", phone);
+            return q.getSingleResult();
+        }
+    }
+
+    public void updatePerson(Person person)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+        }
     }
 
     public void removePerson(Person p)
@@ -85,6 +108,16 @@ public class PersonDAO
         try(EntityManager em = emf.createEntityManager())
         {
             return em.find(Person.class, pId);
+        }
+    }
+
+    public List<Person> getAllPersonsByCity(String city)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            return em.createQuery("SELECT p FROM Person p WHERE p.address.zip.city = :city", Person.class)
+                    .setParameter("city", city)
+                    .getResultList();
         }
     }
 }

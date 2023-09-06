@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Entity
@@ -62,4 +63,5 @@ public class Phone
 
         return Pattern.matches(regex, number);
     }
+
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+//@ToString
 @Entity
 public class Hobby
 {
@@ -23,7 +23,7 @@ public class Hobby
     private String wikilink;
     private String category;
     private String type;
-    @OneToMany(mappedBy = "hobby", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hobby", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Interests> interests = new HashSet<>();
 
     public Hobby(String wikilink, String category, String type)

@@ -2,9 +2,7 @@ package dat.entities;
 
 import dat.dao.AddressDAO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,8 +22,13 @@ public class Person
     @Column(length = 45, nullable = false)
     private String surname;
     private LocalDate birthdate;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Interests> interests = new HashSet<>();
+
+
     @Column(length = 100, nullable = false)
     private String email;
+
     @Column(length = 25, nullable = false)
     private String password;
 
@@ -35,9 +38,6 @@ public class Person
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Phone> phoneSet = new HashSet<>();
-
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private Set<Interests> interests = new HashSet<>();
 
     public Person(String name, String surname, LocalDate birthdate, String email, String password, Address address)
     {
@@ -77,6 +77,20 @@ public class Person
         {
             throw new IllegalArgumentException("The surname: " + getSurname() + " is not valid");
         }
+    }
+
+    public Interests addInterest(Hobby hobby)
+    {
+        //Creates interest
+        Interests interests = new Interests();
+        interests.setPerson(this);
+        interests.setHobby(hobby);
+
+        //adds interests to sets in Person and Hobby
+        getInterests().add(interests);
+        hobby.getInterests().add(interests);
+
+        return interests;
     }
 
 

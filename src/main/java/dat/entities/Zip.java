@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Setter
 @Getter
-@ToString
+//@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "zipcode")
@@ -29,5 +29,10 @@ public class Zip
     public Zip(Integer id)
     {
         this.id = id;
+    }
+    public Zip(Integer id, String city)
+    {
+        this.id = id;
+        this.city = city;
     }
 }
