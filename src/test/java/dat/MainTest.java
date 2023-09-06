@@ -79,7 +79,7 @@ class MainTest
         // US - 2
 
         Person p = new Person("Ole", "Hansen",  LocalDate.of(2001, 6, 9),
-                "olehansen@email.com", "1234", new Address("Kulsvirtoften", "24", 2800));
+                "olehansen@email.com", "1234OLE123", new Address("Kulsvirtoften", "24", 2800));
         p.addPhone(new Phone("90907856", PhoneType.HOME));
         p.addPhone(new Phone("45901289", PhoneType.HOME));
 
