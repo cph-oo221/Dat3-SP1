@@ -2,9 +2,11 @@ package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Person;
+import dat.entities.Phone;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -50,6 +52,17 @@ public class PersonDAO
             em.persist(person);
             em.getTransaction().commit();
             return person;
+        }
+    }
+
+    public Person getAllInfoFromPhone(Phone phone) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Person> q = em.createQuery(
+                    "SELECT p FROM Person p JOIN p.phoneSet ph WHERE ph = :phone",
+                    Person.class
+            );
+            q.setParameter("phone", phone);
+            return q.getSingleResult();
         }
     }
 

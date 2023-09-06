@@ -8,6 +8,7 @@ import dat.entities.*;
 import dat.scripts.FillScripts;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -59,6 +60,40 @@ class MainTest
     }
 
 
+    @Test
+    void getAllInfoOnPerson()
+    {
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        p.addPhone(new Phone("12345678", PhoneType.HOME));
+
+        personDAO.createPerson(p);
+
+        Person actual = personDAO.readPerson(p.getP_id());
+
+        assertEquals(p.getName(), actual.getName());
+        assertEquals(p.getP_id(), actual.getP_id());
+        assertEquals(p.getSurname(), actual.getSurname());
+        assertEquals(p.getPhoneSet().size(), actual.getPhoneSet().size());
+        assertEquals(p.getInterests(), actual.getInterests());
+    }
+
+    @Test
+    void getAllInfoFromPhone()
+    {
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        Phone phone = new Phone("12345678", PhoneType.HOME);
+        p.addPhone(phone);
+
+        personDAO.createPerson(p);
+
+        Person actual = personDAO.getAllInfoFromPhone(phone);
+
+        assertEquals(p.getName(), actual.getName());
+
+
+    }
 
     @Test
     void getUserdata()
@@ -97,9 +132,9 @@ class MainTest
         p2.addInterest(hobby);
         personDAO.createPerson(p);
         personDAO.createPerson(p2);
-        List<Person> hobbies = hobbyDAO.getAllPersonsByHobby(hobby);
+        List<Person> persons = hobbyDAO.getAllPersonsByHobby(hobby);
         int expected = 2;
-        assertEquals(expected, hobbies.size());
+        assertEquals(expected, persons.size());
     }
 
     @Test

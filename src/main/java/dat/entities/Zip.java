@@ -7,7 +7,7 @@ import lombok.*;
 @Entity
 @Setter
 @Getter
-@ToString
+//@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "zipcode")
