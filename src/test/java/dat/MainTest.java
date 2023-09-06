@@ -4,6 +4,7 @@ import dat.config.HibernateConfig;
 import dat.dao.HobbyDAO;
 import dat.dao.PersonDAO;
 import dat.dao.PhoneDAO;
+import dat.dto.HobbiesCountDTO;
 import dat.entities.*;
 import dat.scripts.FillScripts;
 import jakarta.persistence.EntityManager;
@@ -73,6 +74,7 @@ class MainTest
                 "john@email.com", "password", new Address("Sovsevej", "1", 2750));
         p.addPhone(new Phone("12345678", PhoneType.HOME));
         p.addPhone(new Phone("22446688", PhoneType.MOBILE));
+
         personDAO.createPerson(p);
         // US - 2
         List<Phone> phoneList = phoneDAO.getAllNumbersByPerson(p);
@@ -107,7 +109,6 @@ class MainTest
     {
         // US - 4
         Hobby hobby = hobbyDAO.find(1);
-        hobbyDAO.getHobbyCount(hobby);
         int expected = 2;
         assertEquals(expected, hobbyDAO.getHobbyCount(hobby));
     }
@@ -115,7 +116,17 @@ class MainTest
     @Test
     void getHobbyListWithAmountOfPeople()
     {
-        // TODO: Write test
+        // US - 5
+
+        Person p = new Person("John", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Sovsevej", "1", 2750));
+        p.addInterest(hobbyDAO.find(1));
+
+        personDAO.createPerson(p);
+
+        List<HobbiesCountDTO> hobbyList = hobbyDAO.getHobbiesCount();
+        int expected = 1;
+        assertEquals(expected, hobbyList.size());
     }
 
     @Test
