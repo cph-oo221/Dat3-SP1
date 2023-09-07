@@ -10,21 +10,20 @@
 ---
 
 ### Business Idea Description:
-HobbyMatch is an innovative web application designed to help users find meaningful connections based on common hobby interests. The platform allows users to discover like-minded individuals by selecting their favorite hobbies and interests. Here's how it works:
 
-  __Profile Creation:__ Users begin by creating a profile where they list their hobbies and interests. They can select from a wide range of options, such as hiking, cooking, photography, gaming, and more.
+HobbyMatch er en innovativ webapplikation designet til at hjælpe brugere med at finde meningsfulde forbindelser baseret på fælles hobbyinteresser. Platformen giver brugerne mulighed for at opdage ligesindede individer ved at vælge deres foretrukne hobbyer og interesser. Her er hvordan det fungerer:
 
-  __Match Algorithm:__ HobbyMatch employs a sophisticated matching algorithm that calculates the percentage of shared interests between users. The higher the percentage, the stronger the potential connection.
+__Profiloprettelse:__ Brugere begynder med at oprette en profil, hvor de angiver deres hobbyer og interesser. De kan vælge mellem et bredt udvalg af muligheder, såsom vandreture, madlavning, fotografering, gaming og meget mere.
 
-  __Geographical Proximity:__ In addition to shared interests, the application considers geographic proximity. Users are presented with profiles of others who share their hobbies and are located nearby, making it easier to meet in person if desired.
+__Matchalgoritme:__ HobbyMatch benytter en avanceret matchalgoritme, der beregner procentdelen af fælles interesser mellem brugerne. Jo højere procentdelen er, jo stærkere er den potentielle forbindelse.
 
-  __Waving:__ If a user comes across a profile that piques their interest, they can "wave" at that user to express their desire for a connection. The recipient of the wave has the option to accept or decline the invitation.
+__Geografisk nærhed:__ Udover fælles interesser tager applikationen også hensyn til geografisk nærhed. Brugerne præsenteres for profiler af andre, der deler deres hobbyer og er placeret i nærheden, hvilket gør det lettere at mødes personligt, hvis det ønskes.
 
-  __Chatting:__ Once a connection is established through mutual waving, users can start chatting with each other within the platform. This allows them to get to know each other better, plan activities related to their shared interests, or simply engage in friendly conversations.
+__At vinke:__ Hvis en bruger støder på en profil, der vækker deres interesse, kan de "vinke" til den bruger for at udtrykke deres ønske om en forbindelse. Modtageren af vinke har mulighed for at acceptere eller afvise invitationen.
 
+__Chat:__ Når en forbindelse er etableret gennem gensidig vinkning, kan brugerne begynde at chatte med hinanden inden for platformen. Dette giver dem mulighed for at lære hinanden bedre at kende, planlægge aktiviteter relateret til deres fælles interesser eller bare deltage i venlige samtaler.
 
-  HobbyMatch is not only a platform for finding potential romantic partners but also a place to meet new friends who share your passions. It promotes meaningful connections based on common interests, fostering a sense of community and belonging among users. Whether you're looking for a hiking buddy, a cooking partner, or someone to discuss your favorite video games with, HobbyMatch is here to help you find the perfect match.
-
+HobbyMatch er ikke kun en platform til at finde potentielle romantiske partnere, men også et sted at møde nye venner, der deler dine lidenskaber. Den fremmer meningsfulde forbindelser baseret på fælles interesser og fremmer en følelse af fællesskab og tilhørsforhold blandt brugerne. Uanset om du leder efter en vandremakker, en madlavningspartner eller nogen at diskutere dine yndlingsspil med, så er HobbyMatch her for at hjælpe dig med at finde den perfekte match.
 
 ### Domain Model
 ![](documentation/md/DOMAIN-MODEL.png)
@@ -37,7 +36,16 @@ HobbyMatch is an innovative web application designed to help users find meaningf
 ---
 
 ### Workflow
-* text
+
+Som et team begyndte vi med at skabe et overblik over forløbet/opgaven. Heri udarbejdede vi en forretningsidé,
+der skulle passe til opgaven, hvilket kan findes ovenfor under overskriften "Business Idea Description."
+Derefter begyndte vi at lave en domænemodel for at skabe et større overblik omkring vores forretningsidé/plan samt projektet som helhed.
+Efter at domænemodellen var lavet, begyndte vi at udarbejde et EER-diagram. Når EER-diagrammet var på plads, oprettede vi vores projekt og Github Projects-board.
+
+
+Gennem hele forløbet har vi benyttet os af Github Projects. Vi har brugt Projects til at skabe overblik i forløbet over,
+hvor langt vi er i arbejdsprocessen. Vi har også brugt Projects til at holde styr på, hvilke User Stories der er i gang med at blive lavet,
+testet eller er færdige. Som et team har vi alle bidraget til at holde styr på og administrere vores GitHub Project-board.
 
 ---
 
