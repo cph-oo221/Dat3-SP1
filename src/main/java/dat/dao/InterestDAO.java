@@ -1,7 +1,6 @@
 package dat.dao;
 
 import dat.entities.Interests;
-import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AccessLevel;

@@ -1,16 +1,11 @@
 package dat.dao;
 
-import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Address;
-import dat.entities.Hobby;
 import dat.entities.Person;
 import dat.entities.Phone;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 

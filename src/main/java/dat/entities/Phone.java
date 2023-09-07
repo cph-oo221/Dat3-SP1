@@ -16,8 +16,6 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 public class Phone
 {
-    // TODO - find number is a String it's very easy to check with regex
-    //  if a number is equal to danish telefon number. Maybe change back to Integer :/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,5 +61,4 @@ public class Phone
 
         return Pattern.matches(regex, number);
     }
-
 }

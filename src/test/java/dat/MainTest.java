@@ -7,12 +7,10 @@ import dat.entities.*;
 import dat.scripts.FillScripts;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -118,6 +116,7 @@ class MainTest
         personDAO.removePerson(p2);
         assertNull(addressDAO.readAddress(id));
     }
+
     @Test
     void getAllInfoOnPerson()
     {
@@ -151,12 +150,6 @@ class MainTest
         assertEquals(p.getName(), actual.getName());
 
 
-    }
-
-    @Test
-    void getUserdata()
-    {
-        // TODO: Write test
     }
 
     @Test
@@ -289,25 +282,5 @@ class MainTest
 
         assertTrue(p.getInterests().size() == 0);
 
-    }
-
-
-
-    @Test
-    void getPostCodesAndCityNames()
-    {
-        // TODO: Write test
-    }
-
-    @Test
-    void getAllPersonDetailsByPhoneNumber()
-    {
-        // TODO: Write test
-    }
-
-    @Test
-    void CRUDOnAllEntities()
-    {
-        // TODO: Write test
     }
 }
