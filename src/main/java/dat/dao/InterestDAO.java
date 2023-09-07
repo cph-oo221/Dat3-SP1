@@ -27,7 +27,7 @@ public class InterestDAO
     {
         try(EntityManager em = emf.createEntityManager())
         {
-            i.getPerson().removeInterest(i.getHobby());
+            i.getPerson().removeInterestManually(i.getHobby());
             em.getTransaction().begin();
             em.remove(i);
             em.getTransaction().commit();
