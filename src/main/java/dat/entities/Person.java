@@ -49,6 +49,21 @@ public class Person
         address.addPerson(this);
     }
 
+    public Interests removeInterestManually(Hobby h)
+    {
+        for(Interests i : interests)
+        {
+            if(i.getHobby().getH_id() == h.getH_id())
+            {
+                interests.remove(h);
+                h.getInterests().remove(i);
+                interests.remove(i);
+                return i;
+            }
+        }
+        return null;
+    }
+
     public void addPhone(Phone phone)
     {
         this.phoneSet.add(phone);

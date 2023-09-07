@@ -1,12 +1,8 @@
 package dat;
 
 import dat.config.HibernateConfig;
-import dat.dao.AddressDAO;
-import dat.dao.HobbyDAO;
-import dat.dao.PersonDAO;
-import dat.dao.PhoneDAO;
+import dat.dao.*;
 import dat.dto.HobbiesCountDTO;
-import dat.dao.ZipDAO;
 import dat.entities.*;
 import dat.scripts.FillScripts;
 import jakarta.persistence.EntityManager;
@@ -16,6 +12,7 @@ import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +25,7 @@ class MainTest
     private PersonDAO personDAO;
     private AddressDAO addressDAO;
     private ZipDAO zipDAO;
+    private InterestDAO interestDAO;
     private EntityManagerFactory emf;
 
     @BeforeAll
@@ -39,6 +37,7 @@ class MainTest
         personDAO = PersonDAO.getInstance(emf);
         zipDAO = ZipDAO.getInstance(emf);
         addressDAO = AddressDAO.getInstance(emf);
+        interestDAO = InterestDAO.getInstance(emf);
 
         try (EntityManager em = emf.createEntityManager())
         {
@@ -266,6 +265,30 @@ class MainTest
         String expectedNumber2 = "42";
         String actualNumber2 = personList.get(1).getAddress().getNumber();
         assertEquals(expectedNumber2, actualNumber2);
+    }
+
+    @Test
+    void deleteInterest()
+    {
+        Person p = new Person("Arne", "Doe",  LocalDate.of(1990, 1, 1),
+                "john@email.com", "password", new Address("Majvej", "10", 2750));
+        Hobby h = hobbyDAO.find(1);
+        p.addInterest(h);
+
+        personDAO.createPerson(p);
+
+        assertTrue(p.getInterests().size() == 1);
+
+        for(Interests i : p.getInterests())
+        {
+            if(i.getPerson() == p && i.getHobby() == h)
+            {
+                interestDAO.deleteInterest(i);
+            }
+        }
+
+        assertTrue(p.getInterests().size() == 0);
+
     }
 
     @Test

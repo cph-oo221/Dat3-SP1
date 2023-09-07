@@ -2,6 +2,7 @@ package dat.dao;
 
 import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Address;
+import dat.entities.Hobby;
 import dat.entities.Person;
 import dat.entities.Phone;
 import jakarta.persistence.EntityManager;
@@ -85,6 +86,8 @@ public class PersonDAO
             em.getTransaction().commit();
         }
     }
+
+
 
     public void removePerson(Person p)
     {
