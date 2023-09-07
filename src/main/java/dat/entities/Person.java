@@ -1,6 +1,5 @@
 package dat.entities;
 
-import dat.dao.AddressDAO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,6 +47,21 @@ public class Person
         this.password = password;
         this.address = address;
         address.addPerson(this);
+    }
+
+    public Interests removeInterest(Hobby h)
+    {
+        for(Interests i : interests)
+        {
+            if(i.getHobby().getH_id() == h.getH_id())
+            {
+                interests.remove(h);
+                h.getInterests().remove(i);
+                interests.remove(i);
+                return i;
+            }
+        }
+        return null;
     }
 
     public void addPhone(Phone phone)

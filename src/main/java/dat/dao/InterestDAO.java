@@ -1,6 +1,7 @@
 package dat.dao;
 
 import dat.entities.Interests;
+import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AccessLevel;
@@ -20,5 +21,16 @@ public class InterestDAO
             instance = new InterestDAO();
         }
         return instance;
+    }
+
+    public void deleteInterest(Interests i)
+    {
+        try(EntityManager em = emf.createEntityManager())
+        {
+            i.getPerson().removeInterest(i.getHobby());
+            em.getTransaction().begin();
+            em.remove(i);
+            em.getTransaction().commit();
+        }
     }
 }
