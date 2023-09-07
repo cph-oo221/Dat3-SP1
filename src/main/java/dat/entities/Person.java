@@ -21,9 +21,6 @@ public class Person
     @Column(length = 45, nullable = false)
     private String surname;
     private LocalDate birthdate;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Interest> interests = new HashSet<>();
-
 
     @Column(length = 100, nullable = false)
     private String email;
@@ -34,6 +31,9 @@ public class Person
     // related entities
     @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Interest> interests = new HashSet<>();
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Phone> phoneSet = new HashSet<>();
@@ -49,9 +49,9 @@ public class Person
         address.addPerson(this);
     }
 
-    public Interests removeInterestManually(Hobby h)
+    public Interest removeInterestManually(Hobby h)
     {
-        for(Interests i : interests)
+        for(Interest i : interests)
         {
             if(i.getHobby().getH_id() == h.getH_id())
             {

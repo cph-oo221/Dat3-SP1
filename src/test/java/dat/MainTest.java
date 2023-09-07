@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MainTest
 {
-
     private PhoneDAO phoneDAO;
     private HobbyDAO hobbyDAO;
     private PersonDAO personDAO;
@@ -39,7 +38,6 @@ class MainTest
 
         try (EntityManager em = emf.createEntityManager())
         {
-
             em.getTransaction().begin();
             em.createNativeQuery("DELETE FROM interest").executeUpdate();
             em.createNativeQuery("DELETE FROM phone").executeUpdate();
@@ -52,7 +50,6 @@ class MainTest
             em.createNativeQuery(FillScripts.ZIPCODE_FILL).executeUpdate();
             em.createNativeQuery(FillScripts.HOBBY_FILL).executeUpdate();
             em.getTransaction().commit();
-
         }
 
     }
