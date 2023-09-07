@@ -87,7 +87,7 @@ public class PhoneDAO
     }
 
 
-    // TODO - THIS IS NOT NEED, MADE BY MISSTAKE
+    // TODO - THIS IS NOT NEED, MADE BY MISTAKE
     public List<Phone> getAllNumbersByHobby(Hobby hobby)
     {
         try(EntityManager em = emf.createEntityManager())

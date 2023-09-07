@@ -1,9 +1,7 @@
 package dat.dao;
 
-import dat.dto.AdressIdStreetNumberDTO;
 import dat.entities.Address;
 import dat.entities.Person;
-import jakarta.persistence.Access;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;

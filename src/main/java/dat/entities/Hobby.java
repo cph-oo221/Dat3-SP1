@@ -11,7 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-//@ToString
 @Entity
 public class Hobby
 {
