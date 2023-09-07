@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,8 +22,8 @@ public class Hobby
     private String wikilink;
     private String category;
     private String type;
-    @OneToMany(mappedBy = "hobby", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Interests> interests = new HashSet<>();
+    @OneToMany(mappedBy = "hobby", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Interest> interests = new HashSet<>();
 
     public Hobby(String wikilink, String category, String type)
     {

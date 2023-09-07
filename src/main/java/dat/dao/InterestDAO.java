@@ -1,7 +1,5 @@
 package dat.dao;
 
-import dat.entities.Interests;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

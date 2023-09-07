@@ -2,7 +2,7 @@ package dat.dao;
 
 import dat.dto.HobbiesCountDTO;
 import dat.entities.Hobby;
-import dat.entities.Interests;
+import dat.entities.Interest;
 import dat.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -52,7 +52,7 @@ public class HobbyDAO
         try(EntityManager em = emf.createEntityManager())
         {
             em.getTransaction().begin();
-            for (Interests interest : hobby.getInterests())
+            for (Interest interest : hobby.getInterests())
             {
                 interest.getPerson().getInterests().remove(interest);
             }
@@ -91,7 +91,7 @@ public class HobbyDAO
     {
         try (EntityManager em = emf.createEntityManager())
         {
-            return em.createQuery("SELECT new dat.dto.HobbiesCountDTO(h, COUNT(i.person.p_id)) From Interests i Join i.hobby h GROUP BY h", HobbiesCountDTO.class)
+            return em.createQuery("SELECT new dat.dto.HobbiesCountDTO(h, COUNT(i.person.p_id)) From Interest i Join i.hobby h GROUP BY h", HobbiesCountDTO.class)
                     .getResultList();
         }
     }

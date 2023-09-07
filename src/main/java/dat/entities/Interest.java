@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Interests
+public class Interest
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

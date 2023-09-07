@@ -63,7 +63,7 @@ public class HibernateConfig
     private static void getAnnotationConfiguration(Configuration configuration)
     {
         allAnnotationConfiguration(configuration, Address.class, Hobby.class,
-                Interests.class, Person.class, Phone.class,
+                Interest.class, Person.class, Phone.class,
                 Zip.class);
     }
 

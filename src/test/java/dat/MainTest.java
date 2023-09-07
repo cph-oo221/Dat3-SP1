@@ -44,11 +44,11 @@ class MainTest
         {
 
             em.getTransaction().begin();
-            em.createNativeQuery("DELETE FROM interests").executeUpdate();
+            em.createNativeQuery("DELETE FROM interest").executeUpdate();
             em.createNativeQuery("DELETE FROM phone").executeUpdate();
             em.createNativeQuery("DELETE FROM person").executeUpdate();
             em.createNativeQuery("DELETE FROM address").executeUpdate();
-            em.createNativeQuery("ALTER SEQUENCE interests_i_id_seq RESTART WITH 1;").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE interest_i_id_seq RESTART WITH 1;").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE phone_phone_id_seq RESTART WITH 1;").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE person_p_id_seq RESTART WITH 1;").executeUpdate();
             em.createNativeQuery("ALTER SEQUENCE address_a_id_seq RESTART WITH 1;").executeUpdate();
@@ -200,7 +200,7 @@ class MainTest
     @Test
     void getAllCityAndZip()
     {
-        assertEquals(zipDAO.getAllCityAndZip().size(), 1099);
+        assertEquals(1099, zipDAO.getAllCityAndZip().size());
     }
 
     @Test
@@ -268,23 +268,22 @@ class MainTest
         assertEquals(expectedNumber2, actualNumber2);
     }
 
-
-
     @Test
-    void getPostCodesAndCityNames()
+    void removeOrphanInterests()
     {
-        // TODO: Write test
-    }
+        // US - 7
+        Person p = new Person("Ole", "Hansen",  LocalDate.of(1985, 4, 12), "email@email.com", "password", new Address("ostevej", "137", 2740));
+        p.addInterest(hobbyDAO.find(1));
 
-    @Test
-    void getAllPersonDetailsByPhoneNumber()
-    {
-        // TODO: Write test
-    }
+        personDAO.createPerson(p);
 
-    @Test
-    void CRUDOnAllEntities()
-    {
-        // TODO: Write test
+        List<Person> list = hobbyDAO.getAllPersonsByHobby(hobbyDAO.find(1));
+        assertEquals("Ole", list.get(0).getName());
+
+        p.removeInterest(hobbyDAO.find(1));
+        p.getInterests().forEach(System.out::println);
+        personDAO.updatePerson(p);
+
+        assertEquals(0, hobbyDAO.getHobbyCount(hobbyDAO.find(1)));
     }
 }

@@ -1,6 +1,5 @@
 package dat.entities;
 
-import dat.dao.AddressDAO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +21,8 @@ public class Person
     @Column(length = 45, nullable = false)
     private String surname;
     private LocalDate birthdate;
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Interests> interests = new HashSet<>();
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Interest> interests = new HashSet<>();
 
 
     @Column(length = 100, nullable = false)
@@ -79,18 +78,31 @@ public class Person
         }
     }
 
-    public Interests addInterest(Hobby hobby)
+    public Interest addInterest(Hobby hobby)
     {
         //Creates interest
-        Interests interests = new Interests();
-        interests.setPerson(this);
-        interests.setHobby(hobby);
+        Interest interest = new Interest();
+        interest.setPerson(this);
+        interest.setHobby(hobby);
 
         //adds interests to sets in Person and Hobby
-        getInterests().add(interests);
-        hobby.getInterests().add(interests);
+        getInterests().add(interest);
+        hobby.getInterests().add(interest);
 
-        return interests;
+        return interest;
+    }
+
+    public void removeInterest(Hobby hobby)
+    {
+        interests.forEach(interest -> {
+            if (interest.getHobby().getH_id().equals(hobby.getH_id()))
+            {
+                interest.setHobby(null);
+                interest.setPerson(null);
+                interests.remove(interest);
+                hobby.getInterests().remove(interest);
+            }
+        });
     }
 
 
