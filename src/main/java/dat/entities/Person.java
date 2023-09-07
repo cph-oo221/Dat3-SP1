@@ -49,7 +49,7 @@ public class Person
         address.addPerson(this);
     }
 
-    public Interests removeInterest(Hobby h)
+    public Interests removeInterestManually(Hobby h)
     {
         for(Interests i : interests)
         {
